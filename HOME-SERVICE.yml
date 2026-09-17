@@ -1,0 +1,30 @@
+server:
+  port: 8084
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+
+jwt:
+  secret: ${JWT_SECRET:7f3a9c2e1d8b4a6f9e2c7d5b1a8f3e6c0d4b9a2f7e1c6d8b5a3f9e0c2d7b4a}
+
+# Logical Eureka service names of the three downstream services this
+# aggregator calls on the caller's behalf.
+services:
+  event-service:
+    name: EVENT-SERVICE
+  competition-service:
+    name: COMPETITION-SERVICE
+  tournament-service:
+    name: TOURNAMENT-SERVICE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
