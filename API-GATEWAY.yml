@@ -1,0 +1,147 @@
+# =========================
+# Server
+# =========================
+server:
+  port: 8085
+  
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
+
+        - id: department-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/departments
+
+        - id: home-service
+          uri: lb://HOME-SERVICE
+          predicates:
+            - Path=/home/**
+          filters:
+            - StripPrefix=1
+
+        # =========================
+        # OAuth2 Routes
+        # =========================
+
+        - id: oauth2-authorization
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/oauth2/authorization/**
+
+        - id: oauth2-callback
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/login/oauth2/code/**
+
+        # =========================
+        # Users
+        # =========================
+
+        - id: user-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/users/**
+
+        # =========================
+        # Event Service
+        # =========================
+
+        - id: event-service
+          uri: lb://EVENT-SERVICE
+          predicates:
+            - Path=/events/**
+          filters:
+            - RewritePath=/events(?<segment>/?.*), /api/events${segment}
+
+        # =========================
+        # Competition Service
+        # =========================
+
+        - id: competition-service
+          uri: lb://COMPETITION-SERVICE
+          predicates:
+            - Path=/competitions/**
+          filters:
+            - RewritePath=/competitions(?<segment>/?.*), /api/competitions${segment}
+
+        # =========================
+        # Tournament / Round Service
+        # =========================
+
+        - id: tournament-service
+          uri: lb://TOURNAMENT-SERVICE
+          predicates:
+            - Path=/rounds/**
+          filters:
+            - RewritePath=/rounds(?<segment>/?.*), /api/tournaments/rounds${segment}
+
+        # =========================
+        # Team Service
+        # =========================
+
+        - id: team-service
+          uri: lb://COMPETITION-SERVICE
+          predicates:
+            - Path=/teams/**
+          filters:
+            - RewritePath=/teams(?<segment>/?.*), /api/teams${segment}
+
+        # =========================
+        # Registration Management
+        # =========================
+
+        - id: registration-service
+          uri: lb://COMPETITION-SERVICE
+          predicates:
+            - Path=/registrations/**
+          filters:
+            - RewritePath=/registrations(?<segment>/?.*), /api/registrations${segment}
+
+        # =========================
+        # Tournament / Match Service
+        # =========================
+
+        - id: tournament-match-service
+          uri: lb://TOURNAMENT-SERVICE
+          predicates:
+            - Path=/matches/**
+          filters:
+            - RewritePath=/matches(?<segment>/?.*), /api/tournaments/matches${segment}
+
+      # =========================
+      # Global CORS Configuration
+      # =========================
+
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - http://localhost:3000
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+# =========================
+# Eureka
+# =========================
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
