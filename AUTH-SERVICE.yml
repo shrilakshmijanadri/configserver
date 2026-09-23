@@ -33,7 +33,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://discovery-server:8761/eureka/
 
 jwt:
   secret: ${JWT_SECRET:7f3a9c2e1d8b4a6f9e2c7d5b1a8f3e6c0d4b9a2f7e1c6d8b5a3f9e0c2d7b4a}
