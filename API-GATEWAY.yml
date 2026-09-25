@@ -3,7 +3,7 @@
 # =========================
 server:
   port: 8085
-  
+
 spring:
   cloud:
     gateway:
@@ -47,6 +47,20 @@ spring:
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/users/**
+
+        # =========================
+        # WebSocket Routes
+        # =========================
+
+        - id: event-websocket
+          uri: lb:ws://EVENT-SERVICE
+          predicates:
+            - Path=/events/ws
+
+        - id: competition-websocket
+          uri: lb:ws://COMPETITION-SERVICE
+          predicates:
+            - Path=/competitions/ws
 
         # =========================
         # Event Service
