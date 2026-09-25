@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8083
 
 spring:
   datasource:
@@ -27,8 +27,14 @@ eureka:
     prefer-ip-address: true
 
 jwt:
-  # Must be identical across all services and the future Auth+Gateway service.
   secret: ${JWT_SECRET:7f3a9c2e1d8b4a6f9e2c7d5b1a8f3e6c0d4b9a2f7e1c6d8b5a3f9e0c2d7b4a}
+
+# Logical service name of Competition Service as registered in Eureka, used
+# to look up a round's competition (and its eventId) for EVENT-scope
+# coordinator authorization checks.
+services:
+  competition-service:
+    name: COMPETITION-SERVICE
 
 management:
   endpoints:
@@ -43,3 +49,5 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+
+  
