@@ -43,3 +43,7 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+
+app:
+  websocket:
+    allowed-origin: ${WEBSOCKET_ALLOWED_ORIGIN:http://localhost:3000}
