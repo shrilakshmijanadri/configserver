@@ -56,11 +56,15 @@ spring:
           uri: lb:ws://EVENT-SERVICE
           predicates:
             - Path=/events/ws
-
+          filters:
+            - RewritePath=/events/ws, /ws
+            
         - id: competition-websocket
           uri: lb:ws://COMPETITION-SERVICE
           predicates:
             - Path=/competitions/ws
+          filters:
+            - RewritePath=/competitions/ws, /ws    
 
         # =========================
         # Event Service
