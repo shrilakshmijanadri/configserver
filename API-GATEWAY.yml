@@ -132,6 +132,17 @@ spring:
           filters:
             - RewritePath=/matches(?<segment>/?.*), /api/tournaments/matches${segment}
 
+        # =========================
+        # Tournament / Cultural Results
+        # =========================
+
+        - id: tournament-cultural-results-service
+          uri: lb://TOURNAMENT-SERVICE
+          predicates:
+            - Path=/cultural-results/**
+          filters:
+            - RewritePath=/cultural-results(?<segment>/?.*), /api/tournaments/cultural-results${segment}
+
       # =========================
       # Global CORS Configuration
       # =========================
