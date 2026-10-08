@@ -23,18 +23,20 @@ eureka:
       defaultZone: http://discovery-server:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
+
   instance:
     prefer-ip-address: true
 
 jwt:
   secret: ${JWT_SECRET:7f3a9c2e1d8b4a6f9e2c7d5b1a8f3e6c0d4b9a2f7e1c6d8b5a3f9e0c2d7b4a}
 
-# Logical service name of Event Service as registered in Eureka, used for
-# service-to-service calls (e.g. validating an eventId before creating a
-# competition under it).
+
 services:
   event-service:
     name: EVENT-SERVICE
+
+  auth-service:
+    name: AUTH-SERVICE
 
 management:
   endpoints:
@@ -44,4 +46,4 @@ management:
 
 app:
   websocket:
-    allowed-origin: ${WEBSOCKET_ALLOWED_ORIGIN:http://localhost:3000}        
+    allowed-origin: ${WEBSOCKET_ALLOWED_ORIGIN:http://localhost:3000}
