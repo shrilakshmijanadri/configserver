@@ -42,7 +42,7 @@ spring:
 
 app:
   oauth2:
-    frontend-callback-url: "http://localhost:3000/oauth2/callback"          
+    frontend-callback-url: "http://localhost:5173/oauth2/callback"          
 
 eureka:
   client:
