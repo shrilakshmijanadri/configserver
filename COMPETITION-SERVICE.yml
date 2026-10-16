@@ -46,4 +46,4 @@ management:
 
 app:
   websocket:
-    allowed-origin: ${WEBSOCKET_ALLOWED_ORIGIN:http://localhost:3000}
+    allowed-origin: ${WEBSOCKET_ALLOWED_ORIGIN:http://localhost:5173}
