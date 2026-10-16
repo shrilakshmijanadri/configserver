@@ -1,3 +1,4 @@
+
 # =========================
 # Server
 # =========================
@@ -58,13 +59,13 @@ spring:
             - Path=/events/ws
           filters:
             - RewritePath=/events/ws, /ws
-            
+
         - id: competition-websocket
           uri: lb:ws://COMPETITION-SERVICE
           predicates:
             - Path=/competitions/ws
           filters:
-            - RewritePath=/competitions/ws, /ws    
+            - RewritePath=/competitions/ws, /ws
 
         # =========================
         # Event Service
@@ -75,7 +76,7 @@ spring:
           predicates:
             - Path=/events/**
           filters:
-            - RewritePath=/events(?<segment>/?.*), /api/events${segment}
+            - "RewritePath=/events(?<segment>/?.*), /api/events${segment}"
 
         # =========================
         # Competition Service
@@ -86,7 +87,7 @@ spring:
           predicates:
             - Path=/competitions/**
           filters:
-            - RewritePath=/competitions(?<segment>/?.*), /api/competitions${segment}
+            - "RewritePath=/competitions(?<segment>/?.*), /api/competitions${segment}"
 
         # =========================
         # Tournament / Round Service
@@ -97,7 +98,7 @@ spring:
           predicates:
             - Path=/rounds/**
           filters:
-            - RewritePath=/rounds(?<segment>/?.*), /api/tournaments/rounds${segment}
+            - "RewritePath=/rounds(?<segment>/?.*), /api/tournaments/rounds${segment}"
 
         # =========================
         # Team Service
@@ -108,7 +109,7 @@ spring:
           predicates:
             - Path=/teams/**
           filters:
-            - RewritePath=/teams(?<segment>/?.*), /api/teams${segment}
+            - "RewritePath=/teams(?<segment>/?.*), /api/teams${segment}"
 
         # =========================
         # Registration Management
@@ -119,7 +120,7 @@ spring:
           predicates:
             - Path=/registrations/**
           filters:
-            - RewritePath=/registrations(?<segment>/?.*), /api/registrations${segment}
+            - "RewritePath=/registrations(?<segment>/?.*), /api/registrations${segment}"
 
         # =========================
         # Tournament / Match Service
@@ -130,7 +131,7 @@ spring:
           predicates:
             - Path=/matches/**
           filters:
-            - RewritePath=/matches(?<segment>/?.*), /api/tournaments/matches${segment}
+            - "RewritePath=/matches(?<segment>/?.*), /api/tournaments/matches${segment}"
 
         # =========================
         # Tournament / Cultural Results
@@ -141,7 +142,7 @@ spring:
           predicates:
             - Path=/cultural-results/**
           filters:
-            - RewritePath=/cultural-results(?<segment>/?.*), /api/tournaments/cultural-results${segment}
+            - "RewritePath=/cultural-results(?<segment>/?.*), /api/tournaments/cultural-results${segment}"
 
       # =========================
       # Global CORS Configuration
@@ -175,3 +176,18 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://discovery-server:8761/eureka/
+
+# =========================
+# Actuator Health Check
+# =========================
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
