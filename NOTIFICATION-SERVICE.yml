@@ -30,6 +30,18 @@ eureka:
     service-url:
       defaultZone: http://discovery-server:8761/eureka/
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+
 logging:
   level:
     com.example.notification_service: DEBUG
