@@ -1,7 +1,10 @@
 server:
   port: 8086
-  
+
 spring:
+  application:
+    name: AUTH-SERVICE
+
   datasource:
     url: jdbc:mysql://mysql:3306/event_management
     username: ${DB_USERNAME:root}
@@ -27,6 +30,7 @@ spring:
           auth: true
           starttls:
             enable: true
+
   security:
     oauth2:
       client:
@@ -42,7 +46,7 @@ spring:
 
 app:
   oauth2:
-    frontend-callback-url: "http://localhost:5173/oauth2/callback"          
+    frontend-callback-url: "http://localhost:5173/oauth2/callback"
 
 eureka:
   client:
@@ -54,3 +58,15 @@ eureka:
 jwt:
   secret: ${JWT_SECRET:7f3a9c2e1d8b4a6f9e2c7d5b1a8f3e6c0d4b9a2f7e1c6d8b5a3f9e0c2d7b4a}
   expiration: 86400000
+
+# Actuator health endpoint for Kubernetes and Jenkins smoke tests
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
