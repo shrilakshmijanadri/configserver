@@ -42,11 +42,11 @@ spring:
               - openid
               - profile
               - email
-            redirect-uri: "http://localhost:8085/login/oauth2/code/google"
+            redirect-uri: "${GOOGLE_REDIRECT_URI:http://localhost:8085/login/oauth2/code/google}"
 
 app:
   oauth2:
-    frontend-callback-url: "http://localhost:5173/oauth2/callback"
+    frontend-callback-url: "${FRONTEND_CALLBACK_URL:http://localhost:5173/oauth2/callback}"
 
 eureka:
   client:
